@@ -1,6 +1,23 @@
 <?php
 
+session_start();
+
 require_once "../database/db.php";
+
+// Check if logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../auth/login.php");
+    exit;
+}
+
+// Check admin role
+if ($_SESSION['role'] !== 'admin') {
+    header("Location: ../user/dashboard.php");
+    exit;
+}
+
+// Admin information
+$adminName = $_SESSION['user_name'] ?? 'Administrator';
 
 // Total products
 $stmt = $pdo->query("SELECT COUNT(*) FROM products");
@@ -37,8 +54,7 @@ $bestSellerCount = $stmt->fetchColumn();
 
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -106,18 +122,21 @@ $bestSellerCount = $stmt->fetchColumn();
             <div class="admin-profile">
 
                 <div class="avatar">
-                    A
-                </div>
+    <?= strtoupper(substr($adminName, 0, 1)) ?>
+</div>
 
                 <div>
-                    <strong>Administrator</strong>
-                    <small>Online</small>
+                    <strong>
+    <?= htmlspecialchars($adminName) ?>
+</strong>
+
+<small>Online</small>
                 </div>
 
                 <span class="online-dot"></span>
 
             </div>
-
+            
             <div class="version">
                 Manifest v1.0
             </div>
@@ -200,8 +219,7 @@ $bestSellerCount = $stmt->fetchColumn();
 
                     <div
                         class="number counter"
-                        data-count="<?php echo (int)$productCount; ?>"
-                    >
+                        data-count="<?php echo (int)$productCount; ?>">
                         0
                     </div>
 
@@ -244,8 +262,7 @@ $bestSellerCount = $stmt->fetchColumn();
 
                     <div
                         class="number counter"
-                        data-count="<?php echo (int)$newProductCount; ?>"
-                    >
+                        data-count="<?php echo (int)$newProductCount; ?>">
                         0
                     </div>
 
@@ -288,8 +305,7 @@ $bestSellerCount = $stmt->fetchColumn();
 
                     <div
                         class="number counter"
-                        data-count="<?php echo (int)$bestSellerCount; ?>"
-                    >
+                        data-count="<?php echo (int)$bestSellerCount; ?>">
                         0
                     </div>
 
