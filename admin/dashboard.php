@@ -28,234 +28,460 @@ $bestSellerCount = $stmt->fetchColumn();
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Admin Dashboard</title>
 
-    <style>
+    <link rel="stylesheet" href="../assets/css/admin-style.css">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f2ec;
-            color: #16181c;
-        }
-
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 240px;
-            height: 100vh;
-            background: #16181c;
-            color: white;
-            padding: 30px 20px;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 40px;
-        }
-
-        .menu a {
-            display: block;
-            color: #ddd;
-            text-decoration: none;
-            padding: 14px 10px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-        }
-
-        .menu a:hover {
-            background: #b8792e;
-            color: white;
-        }
-
-        .main {
-            margin-left: 240px;
-            padding: 40px;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .topbar h1 {
-            font-size: 32px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border: 1px solid #ddd;
-        }
-
-        .card h3 {
-            color: #777;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .card .number {
-            font-size: 35px;
-            font-weight: bold;
-        }
-
-        .quick-actions {
-            margin-top: 40px;
-        }
-
-        .quick-actions h2 {
-            margin-bottom: 20px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .action {
-            background: #16181c;
-            color: white;
-            text-decoration: none;
-            padding: 15px 25px;
-        }
-
-        .action:hover {
-            background: #b8792e;
-        }
-
-        @media (max-width: 800px) {
-
-            .sidebar {
-                width: 180px;
-            }
-
-            .main {
-                margin-left: 180px;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-    </style>
-
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 </head>
-
 
 <body>
 
+    <!-- Animated Background -->
+    <div class="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Mobile Menu -->
+    <button class="sidebar-toggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
     <aside class="sidebar">
 
         <div class="logo">
-            ADMIN
+
+            <div class="logo-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <div>
+                <strong>Admin</strong>
+                <small>CONTROL PANEL</small>
+            </div>
+
+        </div>
+
+        <div class="menu-title">
+            MAIN MENU
         </div>
 
         <nav class="menu">
 
-            <a href="dashboard.php">
-                Dashboard
+            <a href="dashboard.php" class="active">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </span>
+                <span>Dashboard</span>
             </a>
 
             <a href="products.php">
-                Products
+                <span class="menu-icon">
+                    <i class="fa-solid fa-box"></i>
+                </span>
+                <span>Products</span>
             </a>
 
             <a href="product-create.php">
-                Add Product
+                <span class="menu-icon">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
+                <span>Add Product</span>
             </a>
 
         </nav>
 
+        <div class="sidebar-bottom">
+
+            <div class="admin-profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div>
+                    <strong>Administrator</strong>
+                    <small>Online</small>
+                </div>
+
+                <span class="online-dot"></span>
+
+            </div>
+
+            <div class="version">
+                Manifest v1.0
+            </div>
+
+        </div>
+
     </aside>
 
 
+    <!-- Main Content -->
     <main class="main">
 
-        <div class="topbar">
+        <!-- Topbar -->
+        <header class="topbar">
 
-            <h1>Dashboard</h1>
+            <div class="welcome">
 
-        </div>
+                <span class="eyebrow">
+                    <span class="pulse"></span>
+                    OVERVIEW
+                </span>
 
+                <h1>
+                    Dashboard
+                    <span class="wave">👋</span>
+                </h1>
 
-        <div class="cards">
+                <p>
+                    Welcome back. Here's what's happening with your catalog.
+                </p>
 
-            <div class="card">
+            </div>
 
-                <h3>Total Products</h3>
+            <div class="top-actions">
 
-                <div class="number">
-                    <?php echo $productCount; ?>
+                <div class="date-box">
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <span>
+                        <?php echo date("F d, Y"); ?>
+                    </span>
+                </div>
+
+                <div class="notification">
+                    <i class="fa-regular fa-bell"></i>
+                    <span></span>
                 </div>
 
             </div>
 
+        </header>
 
-            <div class="card">
 
-                <h3>New Arrivals</h3>
+        <!-- Statistics -->
+        <section class="stats-grid">
 
-                <div class="number">
-                    <?php echo $newProductCount; ?>
+            <!-- Total -->
+            <div class="stat-card blue">
+
+                <div class="card-glow"></div>
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+
+                    <span class="trend">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        Catalog
+                    </span>
+
                 </div>
+
+                <div class="stat-info">
+
+                    <span class="label">
+                        TOTAL PRODUCTS
+                    </span>
+
+                    <div
+                        class="number counter"
+                        data-count="<?php echo (int)$productCount; ?>"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+                <div class="progress">
+                    <span></span>
+                </div>
+
+                <p class="stat-footer">
+                    Products currently in your catalog
+                </p>
 
             </div>
 
 
-            <div class="card">
+            <!-- New -->
+            <div class="stat-card purple">
 
-                <h3>Best Sellers</h3>
+                <div class="card-glow"></div>
 
-                <div class="number">
-                    <?php echo $bestSellerCount; ?>
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+
+                    <span class="trend">
+                        <i class="fa-solid fa-star"></i>
+                        New
+                    </span>
+
                 </div>
+
+                <div class="stat-info">
+
+                    <span class="label">
+                        NEW ARRIVALS
+                    </span>
+
+                    <div
+                        class="number counter"
+                        data-count="<?php echo (int)$newProductCount; ?>"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+                <div class="progress">
+                    <span></span>
+                </div>
+
+                <p class="stat-footer">
+                    Recently added products
+                </p>
 
             </div>
 
-        </div>
 
+            <!-- Best Sellers -->
+            <div class="stat-card orange">
 
-        <section class="quick-actions">
+                <div class="card-glow"></div>
 
-            <h2>Quick Actions</h2>
+                <div class="stat-top">
 
-            <div class="actions">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
 
-                <a href="product-create.php" class="action">
-                    + Add Product
-                </a>
+                    <span class="trend">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        Hot
+                    </span>
 
-                <a href="products.php" class="action">
-                    Manage Products
-                </a>
+                </div>
+
+                <div class="stat-info">
+
+                    <span class="label">
+                        BEST SELLERS
+                    </span>
+
+                    <div
+                        class="number counter"
+                        data-count="<?php echo (int)$bestSellerCount; ?>"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+                <div class="progress">
+                    <span></span>
+                </div>
+
+                <p class="stat-footer">
+                    Top performing products
+                </p>
 
             </div>
 
         </section>
 
+
+        <!-- Bottom Grid -->
+        <section class="dashboard-grid">
+
+
+            <!-- Quick Actions -->
+            <div class="panel quick-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="panel-eyebrow">
+                            ACTION CENTER
+                        </span>
+
+                        <h2>Quick Actions</h2>
+                    </div>
+
+                    <div class="panel-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+
+                </div>
+
+
+                <div class="action-grid">
+
+                    <a href="product-create.php" class="action-card add">
+
+                        <div class="action-icon">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+
+                        <div>
+                            <strong>Add Product</strong>
+                            <span>Create a new catalog item</span>
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right arrow"></i>
+
+                    </a>
+
+
+                    <a href="products.php" class="action-card manage">
+
+                        <div class="action-icon">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+
+                        <div>
+                            <strong>Manage Products</strong>
+                            <span>View and edit your catalog</span>
+                        </div>
+
+                        <i class="fa-solid fa-arrow-right arrow"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- System Status -->
+            <div class="panel status-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="panel-eyebrow">
+                            SYSTEM
+                        </span>
+
+                        <h2>Status</h2>
+                    </div>
+
+                    <div class="status-badge">
+                        <span></span>
+                        Healthy
+                    </div>
+
+                </div>
+
+
+                <div class="status-list">
+
+                    <div class="status-item">
+
+                        <div class="status-left">
+
+                            <div class="mini-icon green">
+                                <i class="fa-solid fa-database"></i>
+                            </div>
+
+                            <div>
+                                <strong>Database</strong>
+                                <small>MySQL connection</small>
+                            </div>
+
+                        </div>
+
+                        <span class="status-online">
+                            Connected
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-item">
+
+                        <div class="status-left">
+
+                            <div class="mini-icon blue">
+                                <i class="fa-solid fa-server"></i>
+                            </div>
+
+                            <div>
+                                <strong>Server</strong>
+                                <small>Application server</small>
+                            </div>
+
+                        </div>
+
+                        <span class="status-online">
+                            Online
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-item">
+
+                        <div class="status-left">
+
+                            <div class="mini-icon purple">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+
+                            <div>
+                                <strong>Security</strong>
+                                <small>System protection</small>
+                            </div>
+
+                        </div>
+
+                        <span class="status-online">
+                            Active
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+        <footer>
+
+            <span>
+                © <?php echo date("Y"); ?> Admin Panel
+            </span>
+
+            <span>
+                Built with PHP + MySQL
+            </span>
+
+        </footer>
+
     </main>
+
+
+    <script src="../assets/js/admin-script.js"></script>
 
 </body>
 
