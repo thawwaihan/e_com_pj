@@ -1,6 +1,6 @@
 <?php
 
-require_once "../db.php";
+require_once "../database/db.php";
 
 $message = "";
 $error = "";
@@ -30,8 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
            
             if (
-                isset($_FILES["image"]) &&
-                $_FILES["image"]["error"] === UPLOAD_ERR_OK
+                isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK
             ) {
 
                 $uploadDir = "../images/products/";
