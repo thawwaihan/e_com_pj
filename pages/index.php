@@ -1,6 +1,6 @@
 <?php
 
-require_once 'db.php';
+require_once '../database/db.php';
 
 $siteName = 'Everyday';
 
@@ -526,7 +526,7 @@ footer{
             <?php endif; ?>
 
             <img
-                src="images/products/<?php echo htmlspecialchars($p['image']); ?>"
+                src="../images/products/<?php echo htmlspecialchars($p['image']); ?>"
                 alt="<?php echo htmlspecialchars($p['name']); ?>"
                 loading="lazy"
             >
@@ -598,7 +598,7 @@ footer{
         
         <div class="frame">
             <img
-    src="images/products/<?php echo htmlspecialchars($p['image']); ?>"
+    src="../images/products/<?php echo htmlspecialchars($p['image']); ?>"
     alt="<?php echo htmlspecialchars($p['name']); ?>"
     loading="lazy"
 >

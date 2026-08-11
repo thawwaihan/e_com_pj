@@ -1,6 +1,6 @@
 <?php
 
-require_once "../db.php";
+require_once "../database/db.php";
 
 // Total products
 $stmt = $pdo->query("SELECT COUNT(*) FROM products");
