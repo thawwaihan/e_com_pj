@@ -1,0 +1,108 @@
+<?php
+
+session_start();
+
+require_once "../database/db.php";
+
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    header("Location: login.php");
+    exit;
+}
+
+$email = trim($_POST['email'] ?? '');
+$password = $_POST['password'] ?? '';
+
+if ($email === '' || $password === '') {
+    $_SESSION['login_error'] = "Please enter email and password.";
+    header("Location: login.php");
+    exit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Find user by email
+|--------------------------------------------------------------------------
+*/
+
+$sql = "SELECT id, name, email, password, role
+        FROM users
+        WHERE email = :email
+        LIMIT 1";
+
+$stmt = $pdo->prepare($sql);
+
+$stmt->execute([
+    'email' => $email
+]);
+
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+/*
+|--------------------------------------------------------------------------
+| Check user exists
+|--------------------------------------------------------------------------
+*/
+
+if (!$user) {
+    $_SESSION['login_error'] = "Email or password is incorrect.";
+    header("Location: login.php");
+    exit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Check password
+|--------------------------------------------------------------------------
+*/
+
+if (!password_verify($password, $user['password'])) {
+    $_SESSION['login_error'] = "Email or password is incorrect.";
+    header("Location: login.php");
+    exit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Login successful
+|--------------------------------------------------------------------------
+*/
+
+session_regenerate_id(true);
+
+$_SESSION['user_id'] = $user['id'];
+$_SESSION['user_name'] = $user['name'];
+$_SESSION['user_email'] = $user['email'];
+$_SESSION['role'] = $user['role'];
+
+/*
+|--------------------------------------------------------------------------
+| Redirect based on role
+|--------------------------------------------------------------------------
+*/
+
+if ($user['role'] === 'admin') {
+
+    header("Location: ../admin/dashboard.php");
+    exit;
+
+}
+
+if ($user['role'] === 'user') {
+
+    header("Location: ../pages/index.php");
+    exit;
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Invalid role
+|--------------------------------------------------------------------------
+*/
+
+session_destroy();
+
+$_SESSION['login_error'] = "Invalid account role.";
+
+header("Location: login.php");
+exit;
