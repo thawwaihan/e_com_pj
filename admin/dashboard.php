@@ -1,12 +1,11 @@
 <?php
 
 session_start();
-
 require_once "../database/db.php";
 
 // Check if logged in
 function isAdminlogin(){
-    return isset($_SESSION['user_id']) && $_SESSION['user_role'] === 'admin';
+    return isset($_SESSION['user_id']);
 }
 
 if(!isAdminlogin()){
