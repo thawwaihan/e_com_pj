@@ -1,4 +1,13 @@
 <?php
+session_start();
+function isUserLoggedIn() {
+    return isset($_SESSION['user_id']);
+}
+if(!isUserLoggedIn()){
+  header("Location: ../auth/login.php");
+  exit;
+}
+
 $cartCount = 0;
 ?>
 <!DOCTYPE html>

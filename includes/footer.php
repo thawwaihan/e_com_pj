@@ -34,7 +34,7 @@
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© <?php echo date("Y"); ?> <?php echo htmlspecialchars($siteName); ?>. All rights reserved.</span>
+    <span>© 2026 All rights reserved.</span>
     <span>Built with PHP</span>
   </div>
 </footer>

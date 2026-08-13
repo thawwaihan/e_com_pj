@@ -2,9 +2,6 @@
 
 require_once '../database/db.php';
 require_once '../includes/header.php';
-$siteName = 'Everyday';
-
-$cartCount = 0;
 
 // New arrivals
 $stmt = $pdo->prepare("

@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-
 require_once "../database/db.php";
+
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: login.php");
