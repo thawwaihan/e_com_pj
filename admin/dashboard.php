@@ -2,13 +2,7 @@
 
 session_start();
 require_once "../database/db.php";
-
-// Check if logged in
-function isAdminlogin(){
-    return isset($_SESSION['user_id']);
-}
-
-if(!isAdminlogin()){
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../auth/login.php");
     exit;
 }
@@ -110,7 +104,12 @@ $bestSellerCount = $stmt->fetchColumn();
                 </span>
                 <span>Add Product</span>
             </a>
-
+           <a href="../auth/logout.php">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-logout"></i>
+                </span>
+                <span>Logout</span>
+            </a>
         </nav>
 
         <div class="sidebar-bottom">

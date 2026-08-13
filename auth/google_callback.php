@@ -1,9 +1,15 @@
 <?php
 
+use Dotenv\Dotenv;
+
 session_start();
 
 require_once "../vendor/autoload.php";
 require_once "../database/db.php";
+
+
+$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+$dotenv->load();
 
 
 $client = new Google\Client();
@@ -18,6 +24,7 @@ $client->setRedirectUri(
 
 if(isset($_GET['code'])){
 
+
     $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
 
     $client->setAccessToken($token);
@@ -27,11 +34,13 @@ if(isset($_GET['code'])){
 
     $googleUser = $googleService->userinfo->get();
 
+
     $name = $googleUser->name;
     $email = $googleUser->email;
-    $google_id = $googleUser->id;
     $picture = $googleUser->picture;
 
+
+    // Check database
     $check = $pdo->prepare(
         "SELECT * FROM users WHERE email = :email"
     );
@@ -40,61 +49,34 @@ if(isset($_GET['code'])){
         "email"=>$email
     ]);
 
+
     $user = $check->fetch(PDO::FETCH_ASSOC);
 
 
 
+    // User does not exist
     if(!$user){
-        $sql = "
-        INSERT INTO users
-        (
-            name,
-            email,
-            google_id,
-            profile_imag e,
-            password,
-            role
-        )
-        VALUES
-        (
-            :name,
-            :email,
-            :google_id,
-            :profile_image,
-            NULL,
-            'user'
-        )
-        ";
 
+        $_SESSION['login_error'] = 
+        "This Google account is not registered.";
 
-        $stmt = $pdo->prepare($sql);
-
-
-        $stmt->execute([
-            "name"=>$name,
-            "email"=>$email,
-            "google_id"=>$google_id,
-            "profile_image"=>$picture
-        ]);
-
-
-        $user_id = $pdo->lastInsertId();
-
-
-    }else{
-
-        // Existing user
-        $user_id = $user['id'];
+        header("Location: login.php");
+        exit;
 
     }
 
-    // Create session
+
+
+    // User exists create session
+
     $_SESSION['user'] = [
-        "id"=>$user_id,
-        "name"=>$name,
-        "email"=>$email,
-        "picture"=>$picture
+        "id"=>$user['id'],
+        "name"=>$user['name'],
+        "email"=>$user['email'],
+        "picture"=>$user['profile_image']
     ];
+
+
     header("Location: ../pages/index.php");
     exit;
 

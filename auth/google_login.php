@@ -3,7 +3,10 @@
 require_once "../vendor/autoload.php";
 
 session_start();
+use Dotenv\Dotenv;
 
+$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
+$dotenv->load();
 $client = new Google\Client();
 
 $client->setClientId($_ENV['GOOGLE_CLIENT_ID']);
