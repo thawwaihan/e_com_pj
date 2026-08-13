@@ -334,17 +334,16 @@ session_start();
 
 
         <?php
-        if(isset($_SESSION['login_error'])){
+        if (isset($_SESSION['login_error']) || isset($_SESSION['error'])){
         ?>
             <div class="alert alert-danger" id="alertMessage">
-                <?= $_SESSION['login_error']; ?>
+                 <?= htmlspecialchars($_SESSION['login_error'] ?? $_SESSION['error']); ?>
             </div>
         <?php
-            unset($_SESSION['login_error']);
+           unset($_SESSION['login_error'], $_SESSION['error']);
         }
         ?>
-        <!-- ================= LOGIN ================= -->
-
+        
 
         <div class="form-container login">
 
@@ -407,7 +406,7 @@ session_start();
                 Start your fashion journey
             </p>
 
-            <form action="register_process.php" method="POST">
+            <form action="register_login.php" method="POST">
 
                 <input
                     type="text"
