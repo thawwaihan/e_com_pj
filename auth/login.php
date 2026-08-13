@@ -325,6 +325,28 @@ session_start();
             color: #c00;
             border: 1px solid #ffb3b3;
         }
+        .password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+    font-size: 16px;
+}
+
+.password-toggle:hover {
+    color: #111;
+}
     </style>
 
 </head>
@@ -366,11 +388,19 @@ session_start();
                     placeholder="Email Address"
                     required>
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    required>
+                <div class="password-wrapper">
+    <input
+        type="password"
+        name="password"
+        id="loginPassword"
+        placeholder="Password"
+        required>
+
+    <i
+        class="fa-solid fa-eye password-toggle"
+        onclick="togglePassword('loginPassword', this)">
+    </i>
+</div>
 
                 <button class="main-btn">
 
@@ -420,11 +450,19 @@ session_start();
                     placeholder="Email Address"
                     required>
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    required>
+                <div class="password-wrapper">
+    <input
+        type="password"
+        name="password"
+        id="registerPassword"
+        placeholder="Password"
+        required>
+
+    <i
+        class="fa-solid fa-eye password-toggle"
+        onclick="togglePassword('registerPassword', this)">
+    </i>
+</div>
 
                 <button
                     class="main-btn"
@@ -553,6 +591,26 @@ session_start();
         }
 
     }, 2000);
+
+    function togglePassword(inputId, icon) {
+
+    const passwordInput = document.getElementById(inputId);
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+
+    } else {
+
+        passwordInput.type = "password";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
     </script>
 </body>
 

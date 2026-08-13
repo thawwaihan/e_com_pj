@@ -24,9 +24,12 @@ if(isset($_POST['register'])){
 
 
     if($check->rowCount()>0){
+
         $_SESSION['error']="Email already exists";
-        header("Location: login.php?register");
+
+        header("Location: auth.php?register");
         exit;
+
     }
 
 
@@ -58,7 +61,7 @@ if(isset($_POST['register'])){
 
     $_SESSION['success']="Register successful";
 
-    header("Location: ../pages/index.php");
+    header("Location: auth.php");
 
 }
 
