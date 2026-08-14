@@ -34,7 +34,6 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
     $_SESSION['login_error'] = "Email or password is incorrect.";
-    header("Location: login.php");
     exit;
 }
 
