@@ -639,23 +639,35 @@ session_start();
 
     <script>
         const container = document.getElementById("container");
-        const btn = document.getElementById("switchBtn");
-        const title = document.getElementById("switch-title");
-        const text = document.getElementById("switch-text");
+const btn = document.getElementById("switchBtn");
+const title = document.getElementById("switch-title");
+const text = document.getElementById("switch-text");
 
-        btn.onclick = () => {
-            container.classList.toggle("active");
+let formType = "login";
+btn.addEventListener("click",(e)=>{
+    e.preventDefault();
+formType = formType === "login" ? "register" : "login";
 
-            if (container.classList.contains("active")) {
-                title.innerHTML = "Welcome back";
-                text.innerHTML = "Log in and continue your fashion journey";
-                btn.innerHTML = "Log in";
-            } else {
-                title.innerHTML = "New here?";
-                text.innerHTML = "Create your account and discover new outfits";
-                btn.innerHTML = "Create account";
-            }
-        }
+    if (formType === "register") {
+
+        // Show register
+        container.classList.add("active");
+
+        title.innerHTML = "Welcome back";
+        text.innerHTML = "Log in and continue your fashion journey";
+        btn.innerHTML = "Log in";
+
+    } else {
+
+        // Show login
+        container.classList.remove("active");
+
+        title.innerHTML = "New here?";
+        text.innerHTML = "Create your account and discover new outfits";
+        btn.innerHTML = "Create account";
+    }
+})
+
 
         setTimeout(() => {
             const alertBox = document.getElementById("alertMessage");
@@ -677,6 +689,7 @@ session_start();
                 icon.classList.add("fa-eye");
             }
         }
+        
     </script>
 </body>
 
